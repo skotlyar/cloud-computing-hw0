@@ -1,0 +1,20 @@
+---
+- name: install hw0 on local machine (hw1)
+  hosts: hw1
+  become: true
+  gather_facts: no
+
+  tasks:
+
+    - name: install apache server
+      apt:
+        name: apache2
+        state: present
+
+    - name: pull from hw0 git repository
+      git:
+        repo: https://github.com/skotlyar/cloud-computing-hw0
+        dest: /home/ubuntu/cloud-computing-hw0
+
+    - name: Copy hw0 source file to web server root directory
+      command: cp /home/ubuntu/cloud-computing-hw0/hw0.html /var/www/html
